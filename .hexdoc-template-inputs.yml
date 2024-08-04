@@ -1,0 +1,19 @@
+author: Master-Bw3
+book_id: "hexui:hexuibook"
+default_branch: main
+github_repo: hex-ui
+gradle_mod_version_key: modVersion
+hexdoc_mod_plugin_classname: HexUIModPlugin
+hexdoc_plugin_classname: HexUIPlugin
+java_lang:
+  ext: java
+  src: java
+java_package: mod/master_bw3/hexui
+mod_display_name: Hex UI
+modid: hexui
+multiloader: true
+pages_url: https://master-bw3.github.io/hex-ui
+pattern_regex:
+  regex: '(?P<is_per_world>register|registerPerWorld)\(HexPattern\.fromAngles\("(?P<signature>[qweasd]+)",\s*HexDir\.(?P<startdir>\w+)\),\s*"(?P<name>[^"]+)"?'
+  per_world_value: registerPerWorld
+pattern_registry: registry/HexUIPatterns.java

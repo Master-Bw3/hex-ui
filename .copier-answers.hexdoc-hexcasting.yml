@@ -1,0 +1,27 @@
+# Changes here will be overwritten by Copier. NEVER EDIT MANUALLY
+# See: https://copier.readthedocs.io/en/stable/configuring/#the-copier-answersyml-file
+_commit: v0.1.11
+_src_path: gh:hexdoc-dev/hexdoc-hexcasting-template
+author: Master-Bw3
+book_id: hexui:hexuibook
+default_branch: main
+github_repo: hex-ui
+gradle_mod_version_key: modVersion
+hexdoc_mod_plugin_classname: HexUIModPlugin
+hexdoc_plugin_classname: HexUIPlugin
+java_lang:
+    ext: java
+    src: java
+java_package: mod/master_bw3/hexui
+mod_display_name: Hex UI
+modid: hexui
+multiloader: true
+package_export_root: doc/src/hexdoc_hexui/_export
+package_name: hexdoc-hexui
+package_slug: hexdoc_hexui
+package_src: doc/src/hexdoc_hexui
+pages_url: https://master-bw3.github.io/hex-ui
+pattern_regex:
+    per_world_value: 'true'
+    regex: make\(\s*"(?P<name>[a-zA-Z0-9_\/]+)",\s*(?:new )?(?:ActionRegistryEntry|OperationAction)\(\s*HexPattern\.fromAngles\(\s*"(?P<signature>[aqweds]+)",\s*HexDir.(?P<startdir>\w+)\)
+pattern_registry: registry/HexUIPatterns.java

@@ -1,0 +1,21 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+# https://copier.readthedocs.io/en/stable/updating/#never-change-the-answers-file-manually
+_commit: v0.0.9-33-ge369b3a
+_src_path: gh:FallingColors/hexdummy
+advanced: true
+capitalize_platforms: true
+classname: HexUI
+default_branch: main
+description: Hex UI addon for Hex Casting
+display_name: Hex UI
+github_repo: hex-ui
+github_user: Master-Bw3
+homepage_url: https://master-bw3.github.io/hex-ui
+java_version: 17
+kotlin: true
+mappings_name: Yarn
+minecraft_version: 1.20.1
+mod_version: 0.1.0
+modid: hexui
+package: mod.master_bw3.hexui
+sources_url: https://github.com/Master-Bw3/hex-ui

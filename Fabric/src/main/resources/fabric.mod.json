@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "hexui",
+  "version": "${modVersion}",
+  "name": "Hex UI",
+  "description": "Hex UI addon for Hex Casting",
+  "authors": [
+    "Master-Bw3"
+  ],
+  "contact": {
+    "homepage": "https://master-bw3.github.io/hex-ui",
+    "sources": "https://github.com/Master-Bw3/hex-ui"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [{
+      "adapter": "kotlin",
+      "value": "mod.master_bw3.hexui.fabric.FabricHexUI"
+    }],
+    "client": [{
+      "adapter": "kotlin",
+      "value": "mod.master_bw3.hexui.fabric.FabricHexUIClient"
+    }],
+    "modmenu": [{
+      "adapter": "kotlin",
+      "value": "mod.master_bw3.hexui.fabric.FabricHexUIModMenu"
+    }]
+  },
+  "mixins": [
+    "hexui-common.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "${versions.minecraft}",
+    "fabricloader": ">=${versions.fabric_loader}",
+    "fabric-api": ">=${versions.fabric_api}",
+    "fabric-language-kotlin": ">=${versions.kotlin_fabric}",
+    "architectury": ">=${versions.architectury}",
+    "hexcasting": ">=${versions.hexcasting}",
+    "cloth-config": ">=${versions.clothConfig}"
+  },
+  "suggests": {
+    "modmenu": ">=${versions.modMenu}"
+  }
+}
