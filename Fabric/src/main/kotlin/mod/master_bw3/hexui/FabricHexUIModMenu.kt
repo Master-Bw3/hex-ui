@@ -8,5 +8,5 @@ import net.fabricmc.api.Environment
 
 @Environment(CLIENT)
 object FabricHexUIModMenu : ModMenuApi {
-    override fun getModConfigScreenFactory() = ConfigScreenFactory(HexUIConfig::getConfigScreen)
+//    override fun getModConfigScreenFactory() = ConfigScreenFactory(HexUIConfig::holder)
 }
