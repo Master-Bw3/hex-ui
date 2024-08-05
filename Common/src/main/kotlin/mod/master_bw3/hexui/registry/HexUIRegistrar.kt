@@ -12,7 +12,7 @@ typealias RegistrarEntry<T> = HexUIRegistrar<T>.Entry<out T>
 // scuffed.
 
 // use Any upper bound to forbid nullable types, because Registry.register needs that???
-abstract class HexUIRegistrar<T : Any>(
+abstract class HexUIRegistrar<T>(
     val registryKey: RegistryKey<Registry<T>>,
     getRegistry: () -> Registry<T>,
 ) {
