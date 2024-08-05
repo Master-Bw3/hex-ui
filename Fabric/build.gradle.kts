@@ -53,6 +53,14 @@ dependencies {
     modLocalRuntime(libs.serializationHooks)
     modLocalRuntime(libs.trinkets)
 
+    modImplementation(libs.owo.lib)
+    // only if you plan to use owo-config
+    annotationProcessor(libs.owo.lib)
+
+    // include this if you don't want force your users to install owo
+    // sentinel will warn them and give the option to download it automatically
+    include(libs.owo.sentinel)
+
     // this is also a Hex dependency, but it's included in case you want to use it for stuff
     libs.mixinExtras.also {
         implementation(it)

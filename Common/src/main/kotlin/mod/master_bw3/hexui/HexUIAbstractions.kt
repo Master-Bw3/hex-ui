@@ -1,14 +1,13 @@
-@file:JvmName("HexJsAbstractions")
+@file:JvmName("HexUIAbstractions")
 
 package mod.master_bw3.hexui.fabric
 
 import dev.architectury.injectables.annotations.ExpectPlatform
 import mod.master_bw3.hexui.registry.HexUIRegistrar
 
+@ExpectPlatform
 fun initRegistries(vararg registries: HexUIRegistrar<*>) {
-    for (registry in registries) {
-        initRegistry(registry)
-    }
+    throw AssertionError()
 }
 
 @ExpectPlatform
