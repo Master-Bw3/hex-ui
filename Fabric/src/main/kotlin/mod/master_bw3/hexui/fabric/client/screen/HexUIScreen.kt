@@ -10,6 +10,8 @@ import net.minecraft.text.Text
 
 
 class HexUIScreen : BaseOwoScreen<FlowLayout>() {
+    override fun shouldPause(): Boolean = false
+
     override fun createAdapter(): OwoUIAdapter<FlowLayout> {
         return OwoUIAdapter.create(this, Containers::verticalFlow);
     }
@@ -25,8 +27,10 @@ class HexUIScreen : BaseOwoScreen<FlowLayout>() {
 
     override fun tick() {
         val newModel = update(this.msg, this.model)
+        this.msg = Msg.NONE
 
-        if (newModel != model) {
+        if (newModel != this.model) {
+            this.model = newModel;
             this.uiAdapter.rootComponent.clearChildren()
             this.uiAdapter.rootComponent.child(view(newModel))
         }
@@ -34,31 +38,39 @@ class HexUIScreen : BaseOwoScreen<FlowLayout>() {
         super.tick()
     }
 
-    data class Model(val show: Boolean)
+    data class Model(val value: Int)
 
     enum class Msg {
         NONE,
-        HIDE
+        INCREMENT,
+        DECREMENT,
     }
 
     fun initModel(): Model {
-        return Model(show = true)
+        return Model(value = 0)
     }
 
     fun update(msg: Msg, model: Model): Model {
         return when (msg) {
             Msg.NONE -> model
-            Msg.HIDE -> Model(show = false)
+            Msg.INCREMENT -> model.copy(value = model.value + 1)
+            Msg.DECREMENT -> model.copy(value = model.value - 1)
         }
     }
 
     fun view(model: Model): FlowLayout {
 
-        val button = Components.button(Text.literal("click me")) { button -> this.msg = Msg.HIDE }
+        val inc = Components.button(Text.literal("/\\")) { button -> this.msg = Msg.INCREMENT }
+        val dec = Components.button(Text.literal("\\/")) { button -> this.msg = Msg.DECREMENT }
+
+        val counter = Components.label(Text.literal(model.value.toString()))
+
 
         val root = Containers.verticalFlow(Sizing.fill(100), Sizing.fill(100))
+        root.child(inc)
+        root.child(counter)
+        root.child(dec)
 
-        if(model.show)  root.child(button)
 
         return root
     }
