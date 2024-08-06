@@ -1,5 +1,6 @@
 package mod.master_bw3.hexui.fabric.client.screen
 
+import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import io.wispforest.owo.ui.base.BaseOwoScreen
 import io.wispforest.owo.ui.component.ButtonComponent
@@ -65,7 +66,7 @@ class HexUIScreen : BaseOwoScreen<FlowLayout>() {
         val inc = Components.button(Text.literal("/\\")) { button -> this.msg = Msg.INCREMENT }
         val dec = Components.button(Text.literal("\\/")) { button -> this.msg = Msg.DECREMENT }
 
-        val test = ButtonComponentBuilder(Text.literal("test"), ListIota(listOf()), listOf()).build()
+        val test = ButtonComponentBuilder(Text.literal("test"), IotaType.serialize(ListIota(listOf())), listOf()).build()
 
 
         val counter = Components.label(Text.literal(model.value.toString()))

@@ -19,4 +19,7 @@ dependencies {
     modApi(libs.clothConfig.common)
 
     implementation(libs.mixinExtras)
+
+    modApi(libs.moreIotas.common)
+
 }

@@ -57,6 +57,8 @@ dependencies {
     // only if you plan to use owo-config
     annotationProcessor(libs.owo.lib)
 
+    modImplementation(libs.moreIotas.fabric)
+
     // include this if you don't want force your users to install owo
     // sentinel will warn them and give the option to download it automatically
     include(libs.owo.sentinel)

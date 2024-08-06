@@ -45,6 +45,9 @@ modMenu            = "7.1.0"
 caelus = "3.1.0+1.20"
 
 owo-lib = "0.11.2+1.20"
+moreIotasVersion = "0.1.0-5"
+moreIotas = "1.20.1-0.1.0-5"
+
 
 # other dependencies
 
@@ -98,6 +101,10 @@ caelus = { module="top.theillusivec4.caelus:caelus-forge", version.ref="caelus" 
 
 owo-lib = {module="io.wispforest:owo-lib",  version.ref="owo-lib"}
 owo-sentinel = {module="io.wispforest:owo-sentinel", version.ref="owo-lib"}
+
+moreIotas-common = {module="libs:moreiotas-common",  version.ref="moreIotas"}
+moreIotas-fabric = {module="libs:moreiotas-fabric",  version.ref="moreIotas"}
+moreIotas-forge = {module="libs:moreiotas-forge",  version.ref="moreIotas"}
 
 asm          = { module="org.ow2.asm:asm", version.ref="asm" }
 asm-analysis = { module="org.ow2.asm:asm-analysis", version.ref="asm" }
