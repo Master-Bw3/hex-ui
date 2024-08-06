@@ -17,11 +17,12 @@ import net.minecraft.client.gui.widget.Widget
 import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.SimpleDefaultedRegistry
+import net.minecraft.registry.SimpleRegistry
 
 object ComponentBuilderTypes : HexUIRegistrar<ComponentBuilderType<*>>(COMPONENT_BUILDER_TYPE, { REGISTRY }) {
     val REGISTRY: Registry<ComponentBuilderType<*>> =
         FabricRegistryBuilder
-            .from(SimpleDefaultedRegistry(HexUI.id("null").toString(), COMPONENT_BUILDER_TYPE, Lifecycle.stable(), false))
+            .from(SimpleRegistry(COMPONENT_BUILDER_TYPE, Lifecycle.stable(), false))
             .buildAndRegister()
 
     @JvmField

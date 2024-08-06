@@ -1,11 +1,13 @@
 package mod.master_bw3.hexui.fabric.client.screen
 
+import at.petrak.hexcasting.api.casting.iota.ListIota
 import io.wispforest.owo.ui.base.BaseOwoScreen
 import io.wispforest.owo.ui.component.ButtonComponent
 import io.wispforest.owo.ui.component.Components
 import io.wispforest.owo.ui.container.Containers
 import io.wispforest.owo.ui.container.FlowLayout
 import io.wispforest.owo.ui.core.*
+import mod.master_bw3.hexui.fabric.api.componentBuilder.ButtonComponentBuilder
 import net.minecraft.text.Text
 
 
@@ -63,6 +65,9 @@ class HexUIScreen : BaseOwoScreen<FlowLayout>() {
         val inc = Components.button(Text.literal("/\\")) { button -> this.msg = Msg.INCREMENT }
         val dec = Components.button(Text.literal("\\/")) { button -> this.msg = Msg.DECREMENT }
 
+        val test = ButtonComponentBuilder(Text.literal("test"), ListIota(listOf()), listOf()).build()
+
+
         val counter = Components.label(Text.literal(model.value.toString()))
 
 
@@ -70,6 +75,7 @@ class HexUIScreen : BaseOwoScreen<FlowLayout>() {
         root.child(inc)
         root.child(counter)
         root.child(dec)
+        root.child(test)
 
 
         return root
