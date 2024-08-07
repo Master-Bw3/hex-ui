@@ -5,7 +5,7 @@ import mod.master_bw3.hexui.HexUI
 import net.minecraft.server.network.ServerPlayerEntity
 
 object HexUINetworking {
-    private val CHANNEL = NetworkChannel.create(HexUI.id("networking_channel"))
+    val CHANNEL: NetworkChannel = NetworkChannel.create(HexUI.id("networking_channel"))
 
     fun init() {
         // FIXME: gross.

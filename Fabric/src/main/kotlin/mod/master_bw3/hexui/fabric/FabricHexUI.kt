@@ -1,6 +1,8 @@
 package mod.master_bw3.hexui.fabric
 
+import gay.`object`.hexdebug.networking.HexUINetworking
 import mod.master_bw3.hexui.HexUI
+import mod.master_bw3.hexui.fabric.networking.MsgSetScreenS2C
 import mod.master_bw3.hexui.fabric.registry.ComponentBuilderTypes
 import mod.master_bw3.hexui.fabric.registry.FabricHexUIActions
 import mod.master_bw3.hexui.fabric.registry.FabricHexUIIotaTypes
@@ -18,5 +20,7 @@ object FabricHexUI : ModInitializer {
             FabricHexUIIotaTypes,
             ComponentBuilderTypes
         )
+
+        HexUINetworking.CHANNEL.register(MsgSetScreenS2C::class.java, MsgSetScreenS2C::encode, ::MsgSetScreenS2C, MsgSetScreenS2C::apply)
     }
 }
