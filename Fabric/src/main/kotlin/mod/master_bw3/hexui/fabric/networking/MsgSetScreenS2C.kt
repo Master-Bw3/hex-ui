@@ -13,17 +13,12 @@ import net.minecraft.nbt.NbtCompound
 import net.minecraft.network.PacketByteBuf
 import java.util.function.Supplier
 
-data class MsgSetScreenS2C(private val view: ComponentBuilder<*, *>) {
+@JvmRecord
+data class MsgSetScreenS2C(val view: ComponentBuilder<*, *>) {
     constructor(buf: PacketByteBuf) : this(ComponentBuilderType.deserialize(buf.readNbt()!!))
 
     fun encode(buf: PacketByteBuf) {
         buf.writeNbt(ComponentBuilderType.serialize(view))
-    }
-
-    fun apply(supplier: Supplier<PacketContext>) = supplier.get().also { ctx ->
-        ctx.queue {
-            HexUI.LOGGER.debug("Client received packet: {}", this)
-        }
     }
 }
 

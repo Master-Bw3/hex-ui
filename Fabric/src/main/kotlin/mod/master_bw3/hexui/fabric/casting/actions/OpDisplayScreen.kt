@@ -25,7 +25,7 @@ object OpDisplayScreen : ConstMediaAction {
         if (caster is ServerPlayerEntity) {
             HexUINetworking.sendToPlayer(
                 caster,
-                MsgSetScreenS2C(IotaType.serialize(init), IotaType.serialize(ListIota(update)), view)
+                MsgSetScreenS2C(view)
             )
         }
 
