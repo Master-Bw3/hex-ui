@@ -58,6 +58,8 @@ dependencies {
     annotationProcessor(libs.owo.lib)
 
     modImplementation(libs.moreIotas.fabric)
+    implementation(group = "org.jblas", name = "jblas", version = "1.2.5")
+    include(group = "org.jblas", name = "jblas", version = "1.2.5")
 
     // include this if you don't want force your users to install owo
     // sentinel will warn them and give the option to download it automatically

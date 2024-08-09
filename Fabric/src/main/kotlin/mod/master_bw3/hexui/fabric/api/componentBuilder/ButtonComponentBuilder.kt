@@ -71,7 +71,7 @@ class ButtonComponentBuilder(
                 .append(": ")
                 .append(IotaType.getDisplay(data.properties.onClick))
 
-            out.append("{")
+            out.append("}")
 
             return out
         }

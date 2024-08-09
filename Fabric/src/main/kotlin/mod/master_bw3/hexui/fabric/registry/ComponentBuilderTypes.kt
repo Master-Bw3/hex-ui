@@ -9,6 +9,7 @@ import com.mojang.serialization.Lifecycle
 import mod.master_bw3.hexui.HexUI
 import mod.master_bw3.hexui.fabric.api.componentBuilder.ButtonComponentBuilder
 import mod.master_bw3.hexui.fabric.api.componentBuilder.ComponentBuilderType
+import mod.master_bw3.hexui.fabric.api.componentBuilder.LayoutComponentBuilder
 import mod.master_bw3.hexui.fabric.registry.ComponentBuilderTypes.REGISTRY
 import mod.master_bw3.hexui.fabric.registry.HexUIRegistryKeys.COMPONENT_BUILDER_TYPE
 import mod.master_bw3.hexui.registry.HexUIRegistrar
@@ -28,4 +29,6 @@ object ComponentBuilderTypes : HexUIRegistrar<ComponentBuilderType<*>>(COMPONENT
     @JvmField
     val BUTTON = register("button") { ButtonComponentBuilder.TYPE }
 
+    @JvmField
+    val LAYOUT = register("layout") { LayoutComponentBuilder.TYPE }
 }
