@@ -2,8 +2,6 @@ package mod.master_bw3.hexui.fabric.api.componentBuilder
 
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import com.mojang.serialization.Codec
-import gay.`object`.hexdebug.networking.HexUINetworking
-import gay.`object`.hexdebug.networking.MsgEventCallbackC2S
 import io.wispforest.owo.ui.component.Components
 import io.wispforest.owo.ui.container.Containers
 import io.wispforest.owo.ui.container.FlowLayout
@@ -50,9 +48,11 @@ class LayoutComponentBuilder(
         return nbt;
     }
 
-    override fun build(): FlowLayout {
+    override fun build(eventCallbackHandler: (NbtCompound) -> Unit): FlowLayout {
         val layout =
             properties.algorithm.constructor(Sizing.fill(100), Sizing.fill(100))
+
+        layout.children(children.map { it.build(eventCallbackHandler) })
 
         return layout
     }

@@ -2,23 +2,30 @@ package mod.master_bw3.hexui.fabric.screen
 
 import at.petrak.hexcasting.api.casting.SpellList
 import at.petrak.hexcasting.api.casting.eval.env.PackagedItemCastEnv
+import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.iota.GarbageIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.iota.NullIota
+import at.petrak.hexcasting.api.casting.mishaps.Mishap
+import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
+import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import io.wispforest.owo.client.screens.SyncedProperty
 import mod.master_bw3.hexui.fabric.api.casting.getComponent
 import mod.master_bw3.hexui.fabric.api.casting.iota.ComponentIota
 import mod.master_bw3.hexui.fabric.api.componentBuilder.ButtonComponentBuilder
 import mod.master_bw3.hexui.fabric.api.componentBuilder.ComponentBuilder
+import mod.master_bw3.hexui.fabric.registry.FabricHexUIActions
 import mod.master_bw3.hexui.fabric.registry.ScreenHandlers
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NbtCompound
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import net.minecraft.util.Hand
 
@@ -56,6 +63,8 @@ class HexScreenHandler(
         val result = harness.image.stack
 
         model = if (result.isNotEmpty()) result.last() else GarbageIota()
+
+        view(model)
     }
 
     private fun view(model: Iota) {
@@ -68,10 +77,26 @@ class HexScreenHandler(
 
         val result = harness.image.stack
 
-        this.view.set(result.takeLast(1).getComponent(0, 1))
+
+        try {
+            if (result.isEmpty()) throw MishapNotEnoughArgs(1, 0)
+            this.view.set(result.takeLast(1).getComponent(0, 1))
+        } catch (mishap: Mishap) {
+            mishap.printStackTrace()
+
+            OperatorSideEffect.DoMishap(
+                mishap,
+                Mishap.Context(
+                    FabricHexUIActions.DISPLAY_SCREEN.value.prototype,
+                    null
+                )
+            ).performEffect(harness)
+        }
     }
 
     override fun quickMove(player: PlayerEntity, slot: Int): ItemStack = ItemStack.EMPTY
 
     override fun canUse(player: PlayerEntity) = true
+
 }
+

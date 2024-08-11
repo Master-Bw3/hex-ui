@@ -3,6 +3,7 @@ package mod.master_bw3.hexui.fabric.api.casting.continuation
 import at.petrak.hexcasting.api.casting.SpellList
 import at.petrak.hexcasting.api.casting.eval.CastResult
 import at.petrak.hexcasting.api.casting.eval.ResolvedPatternType
+import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.eval.vm.ContinuationFrame
 import at.petrak.hexcasting.api.casting.eval.vm.FrameEvaluate
@@ -10,15 +11,19 @@ import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
+import at.petrak.hexcasting.api.casting.iota.PatternIota
+import at.petrak.hexcasting.api.casting.math.HexAngle
+import at.petrak.hexcasting.api.casting.math.HexDir
+import at.petrak.hexcasting.api.casting.math.HexPattern
+import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.utils.hasList
-import at.petrak.hexcasting.api.utils.putBoolean
 import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
-import com.mojang.serialization.codecs.RecordCodecBuilder
 import mod.master_bw3.hexui.fabric.api.casting.getComponent
+import mod.master_bw3.hexui.fabric.registry.FabricHexUIActions
 import mod.master_bw3.hexui.fabric.screen.HexScreenHandler
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
@@ -53,24 +58,46 @@ data class FrameComputeScreenView(
             )
         } else {
             val result = harness.image.stack
-            if (result.isEmpty()) throw MishapNotEnoughArgs(1, 0)
+            if (result.isEmpty()) {
+                val mishap = MishapNotEnoughArgs(1, 0)
+                mishap.printStackTrace()
 
-            ((harness.env.castingEntity as? ServerPlayerEntity)
-                ?.currentScreenHandler as? HexScreenHandler)
-                ?.view
-                ?.set(
-                    result.takeLast(1).getComponent(0, 1)
+                CastResult(
+                    ListIota(view),
+                    continuation,
+                    null,
+                    listOf(
+                        OperatorSideEffect.DoMishap(
+                            mishap,
+                            Mishap.Context(
+                                FabricHexUIActions.DISPLAY_SCREEN.value.prototype,
+                                null
+                            )
+                        )
+                    ),
+                    ResolvedPatternType.ERRORED,
+                    HexEvalSounds.MISHAP
                 )
 
-            CastResult(
-                ListIota(view),
-                continuation,
-                harness.image.copy(stack = baseStack),
-                listOf(),
-                ResolvedPatternType.EVALUATED,
-                HexEvalSounds.HERMES
-            )
+            } else {
+                ((harness.env.castingEntity as? ServerPlayerEntity)
+                    ?.currentScreenHandler as? HexScreenHandler)
+                    ?.view
+                    ?.set(
+                        result.takeLast(1).getComponent(0, 1)
+                    )
+
+                CastResult(
+                    ListIota(view),
+                    continuation,
+                    harness.image.copy(stack = baseStack),
+                    listOf(),
+                    ResolvedPatternType.EVALUATED,
+                    HexEvalSounds.HERMES
+                )
+            }
         }
+
     }
 
     override fun serializeToNBT(): NbtCompound {

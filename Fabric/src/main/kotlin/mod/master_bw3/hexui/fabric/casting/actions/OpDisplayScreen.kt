@@ -12,7 +12,6 @@ import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
-import gay.`object`.hexdebug.networking.HexUINetworking
 import mod.master_bw3.hexui.fabric.api.casting.continuation.FrameComputeScreenView
 import mod.master_bw3.hexui.fabric.api.casting.getComponent
 import mod.master_bw3.hexui.fabric.api.casting.iota.ComponentIota
@@ -64,7 +63,7 @@ object OpDisplayScreen : Action {
         return OperationResult(
             image.copy(stack = stack, opsConsumed = 1),
             listOf(),
-            continuation.pushFrame(FrameComputeScreenView(stack, init, view)),
+            continuation.pushFrame(FrameComputeScreenView(null, init, view)),
             HexEvalSounds.NORMAL_EXECUTE
         )
     }

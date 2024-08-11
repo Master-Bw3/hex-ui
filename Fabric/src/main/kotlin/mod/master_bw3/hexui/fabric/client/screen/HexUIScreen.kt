@@ -8,9 +8,12 @@ import io.wispforest.owo.ui.container.Containers
 import io.wispforest.owo.ui.container.FlowLayout
 import io.wispforest.owo.ui.core.*
 import mod.master_bw3.hexui.fabric.api.componentBuilder.ButtonComponentBuilder
+import mod.master_bw3.hexui.fabric.networking.HexUINetworking
+import mod.master_bw3.hexui.fabric.networking.MsgEventCallbackC2S
 import mod.master_bw3.hexui.fabric.screen.HexScreenHandler
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider
 import net.minecraft.entity.player.PlayerInventory
+import net.minecraft.nbt.NbtCompound
 import net.minecraft.text.Text
 import java.util.function.Consumer
 
@@ -27,17 +30,13 @@ class HexUIScreen(
         return OwoUIAdapter.create(this, Containers::verticalFlow);
     }
 
-//    var model = initModel()
-//    var msg = Msg.NONE
-
     override fun build(rootComponent: FlowLayout) {
-        println("build")
-//        this.uiAdapter.rootComponent.child(view(model))
+        val callback = { nbt: NbtCompound -> HexUINetworking.sendToServer(MsgEventCallbackC2S(nbt)) }
 
-        setView(handler.view.get().build())
+        setView(handler.view.get().build(callback))
 
         handler.view.observe { builder ->
-            setView(builder.build())
+            setView(builder.build(callback))
         }
     }
 
@@ -46,61 +45,6 @@ class HexUIScreen(
         this.uiAdapter.rootComponent.child(view)
 
     }
-
-//
-//    override fun tick() {
-//        val newModel = update(this.msg, this.model)
-//        this.msg = Msg.NONE
-//
-//        if (newModel != this.model) {
-//            this.model = newModel;
-//            this.uiAdapter.rootComponent.clearChildren()
-//            this.uiAdapter.rootComponent.child(view(newModel))
-//        }
-//
-//        super.tick()
-//    }
-//
-//    data class Model(val value: Int)
-//
-//    enum class Msg {
-//        NONE,
-//        INCREMENT,
-//        DECREMENT,
-//    }
-//
-//    fun initModel(): Model {
-//        return Model(value = 0)
-//    }
-//
-//    fun update(msg: Msg, model: Model): Model {
-//        return when (msg) {
-//            Msg.NONE -> model
-//            Msg.INCREMENT -> model.copy(value = model.value + 1)
-//            Msg.DECREMENT -> model.copy(value = model.value - 1)
-//        }
-//    }
-//
-//    fun view(model: Model): FlowLayout {
-//
-//        val inc = Components.button(Text.literal("/\\")) { button -> this.msg = Msg.INCREMENT }
-//        val dec = Components.button(Text.literal("\\/")) { button -> this.msg = Msg.DECREMENT }
-//
-//        val test = ButtonComponentBuilder(Text.literal("test"), IotaType.serialize(ListIota(listOf())), listOf()).build()
-//
-//
-//        val counter = Components.label(Text.literal(model.value.toString()))
-//
-//
-//        val root = Containers.verticalFlow(Sizing.fill(100), Sizing.fill(100))
-//        root.child(inc)
-//        root.child(counter)
-//        root.child(dec)
-//        root.child(test)
-//
-//
-//        return root
-//    }
 
     override fun getScreenHandler(): HexScreenHandler = this.handler
 

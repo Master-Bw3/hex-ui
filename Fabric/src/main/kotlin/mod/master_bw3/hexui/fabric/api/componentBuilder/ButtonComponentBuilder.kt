@@ -7,8 +7,6 @@ import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.api.utils.styledWith
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import dev.architectury.networking.NetworkManager
-import gay.`object`.hexdebug.networking.HexUINetworking
-import gay.`object`.hexdebug.networking.MsgEventCallbackC2S
 import io.wispforest.owo.ui.component.ButtonComponent
 import io.wispforest.owo.ui.component.Components
 import net.minecraft.client.gui.widget.Widget
@@ -35,9 +33,9 @@ class ButtonComponentBuilder(
         return nbt;
     }
 
-    override fun build(): ButtonComponent {
+    override fun build(eventCallbackHandler: (NbtCompound) -> Unit): ButtonComponent {
         val button = Components.button(properties.message
-        ) { _ -> HexUINetworking.sendToServer(MsgEventCallbackC2S(properties.onClick)) }
+        ) { _ -> eventCallbackHandler(properties.onClick) }
 
         return button
     }

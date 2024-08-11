@@ -1,4 +1,4 @@
-package gay.`object`.hexdebug.networking
+package mod.master_bw3.hexui.fabric.networking
 
 import dev.architectury.networking.NetworkChannel
 import mod.master_bw3.hexui.HexUI
@@ -10,7 +10,6 @@ object HexUINetworking {
     fun init() {
         // FIXME: gross.
         CHANNEL.register(MsgEventCallbackC2S::class.java, MsgEventCallbackC2S::encode, ::MsgEventCallbackC2S, MsgEventCallbackC2S::apply)
-        CHANNEL.register(MsgEventCallbackS2C::class.java, MsgEventCallbackS2C::encode, ::MsgEventCallbackS2C, MsgEventCallbackS2C::apply)
     }
 
     fun <T> sendToServer(message: T) = CHANNEL.sendToServer(message)

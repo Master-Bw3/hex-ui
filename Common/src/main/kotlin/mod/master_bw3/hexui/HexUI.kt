@@ -1,6 +1,5 @@
 package mod.master_bw3.hexui
 
-import gay.`object`.hexdebug.networking.HexUINetworking
 import net.fabricmc.api.ModInitializer
 import net.minecraft.util.Identifier
 import org.apache.logging.log4j.LogManager
@@ -20,7 +19,6 @@ object HexUI : ModInitializer {
     }
 
     fun init() {
-        HexUINetworking.init()
     }
 
 }

@@ -15,7 +15,7 @@ abstract class ComponentBuilder<T : Component, V>(
 
     abstract fun serialize(): NbtCompound
 
-    abstract fun build() : T
+    abstract fun build(eventCallbackHandler: (NbtCompound) -> Unit) : T
 
 
 }
