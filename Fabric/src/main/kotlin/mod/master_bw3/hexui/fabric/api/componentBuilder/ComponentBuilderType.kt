@@ -9,7 +9,7 @@ import net.minecraft.text.Text
 import net.minecraft.text.TextColor
 import net.minecraft.util.Identifier
 
-abstract class ComponentBuilderType<T: ComponentBuilder<*, *>> {
+abstract class ComponentBuilderType<T: ComponentBuilder<*>> {
 
     abstract fun deserialize(nbt: NbtCompound): T
 
@@ -24,7 +24,7 @@ abstract class ComponentBuilderType<T: ComponentBuilder<*, *>> {
     abstract fun display(nbt: NbtCompound): Text
 
     companion object {
-        fun serialize(componentBuilder: ComponentBuilder<*, *>): NbtCompound {
+        fun serialize(componentBuilder: ComponentBuilder<*>): NbtCompound {
             val type = componentBuilder.type
             val typeKey = ComponentBuilderTypes.REGISTRY.getKey(type)
             if (typeKey.isEmpty) {
@@ -52,7 +52,7 @@ abstract class ComponentBuilderType<T: ComponentBuilder<*, *>> {
             return ComponentBuilderTypes.REGISTRY.get(typeLoc)
         }
 
-        fun deserialize(nbt: NbtCompound): ComponentBuilder<*, *> {
+        fun deserialize(nbt: NbtCompound): ComponentBuilder<*> {
             val type = ComponentBuilderType.getTypeFromNbt(nbt)!!
 
             val data= nbt.getCompound("data")!!

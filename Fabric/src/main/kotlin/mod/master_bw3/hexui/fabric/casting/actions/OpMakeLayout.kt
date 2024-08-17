@@ -4,15 +4,9 @@ import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.iota.IotaType
-import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import mod.master_bw3.hexui.fabric.api.casting.iota.ComponentIota
-import mod.master_bw3.hexui.fabric.api.componentBuilder.ButtonComponentBuilder
-import mod.master_bw3.hexui.fabric.api.componentBuilder.LayoutComponentBuilder
-import net.minecraft.text.Text
-import ram.talia.moreiotas.api.getString
-import java.util.ArrayList
+import mod.master_bw3.hexui.fabric.componentBuilder.container.LayoutComponentBuilder
 
 class OpMakeLayout(private val algorithm: LayoutComponentBuilder.Algorithm) : ConstMediaAction {
     override val argc: Int

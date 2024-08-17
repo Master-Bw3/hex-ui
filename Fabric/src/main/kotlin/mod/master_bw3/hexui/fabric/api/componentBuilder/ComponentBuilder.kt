@@ -6,16 +6,13 @@ import io.wispforest.owo.ui.core.Component
 import net.minecraft.client.gui.widget.Widget
 import net.minecraft.nbt.NbtCompound
 import java.util.function.Consumer
+import kotlin.reflect.full.createInstance
 
-abstract class ComponentBuilder<T : Component, V>(
+abstract class ComponentBuilder<T : Component>(
     val type: ComponentBuilderType<*>,
-    val properties: V,
-    val children: List<ComponentBuilder<*, *>>
-) {
+) : Cloneable {
 
     abstract fun serialize(): NbtCompound
 
     abstract fun build(eventCallbackHandler: (NbtCompound) -> Unit) : T
-
-
 }

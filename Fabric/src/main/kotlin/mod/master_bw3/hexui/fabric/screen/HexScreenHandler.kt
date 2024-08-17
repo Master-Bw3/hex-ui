@@ -6,27 +6,20 @@ import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.iota.GarbageIota
 import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.iota.IotaType
-import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
-import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import io.wispforest.owo.client.screens.SyncedProperty
 import mod.master_bw3.hexui.fabric.api.casting.getComponent
-import mod.master_bw3.hexui.fabric.api.casting.iota.ComponentIota
-import mod.master_bw3.hexui.fabric.api.componentBuilder.ButtonComponentBuilder
 import mod.master_bw3.hexui.fabric.api.componentBuilder.ComponentBuilder
+import mod.master_bw3.hexui.fabric.componentBuilder.container.LayoutComponentBuilder
 import mod.master_bw3.hexui.fabric.registry.FabricHexUIActions
 import mod.master_bw3.hexui.fabric.registry.ScreenHandlers
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NbtCompound
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.server.world.ServerWorld
-import net.minecraft.text.Text
 import net.minecraft.util.Hand
 
 class HexScreenHandler(
@@ -38,10 +31,9 @@ class HexScreenHandler(
 ) :
     ScreenHandler(ScreenHandlers.HEX_SCREEN.value, syncId) {
 
-    val view: SyncedProperty<ComponentBuilder<*, *>> = createProperty(
-        ComponentBuilder::class.java, ButtonComponentBuilder(
-            Text.literal("test"),
-            IotaType.serialize(ListIota(listOf())),
+    val view: SyncedProperty<ComponentBuilder<*>> = createProperty(
+        ComponentBuilder::class.java, LayoutComponentBuilder(
+            LayoutComponentBuilder.Algorithm.VERTICAL,
             listOf()
         )
     )

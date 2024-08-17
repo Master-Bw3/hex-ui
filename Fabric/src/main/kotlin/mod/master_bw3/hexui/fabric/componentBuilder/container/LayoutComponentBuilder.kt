@@ -1,33 +1,32 @@
-package mod.master_bw3.hexui.fabric.api.componentBuilder
+package mod.master_bw3.hexui.fabric.componentBuilder.container
 
-import at.petrak.hexcasting.api.casting.iota.IotaType
 import com.mojang.serialization.Codec
-import io.wispforest.owo.ui.component.Components
+import com.mojang.serialization.OptionalDynamic
 import io.wispforest.owo.ui.container.Containers
 import io.wispforest.owo.ui.container.FlowLayout
-import io.wispforest.owo.ui.core.Component
 import io.wispforest.owo.ui.core.Sizing
+import mod.master_bw3.hexui.fabric.api.componentBuilder.ComponentBuilder
+import mod.master_bw3.hexui.fabric.api.componentBuilder.ComponentBuilderType
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtList
 import net.minecraft.nbt.NbtOps
-import net.minecraft.nbt.NbtTypes
 import net.minecraft.text.Text
+import java.util.*
 
-class LayoutComponentBuilder(
-    algorithm: Algorithm,
-    children: List<ComponentBuilder<*, *>>
-) : ComponentBuilder<FlowLayout, LayoutComponentBuilder.LayoutProperties>(
-    TYPE, LayoutProperties(algorithm), children
-) {
-    data class LayoutProperties(val algorithm: Algorithm);
+data class LayoutComponentBuilder(
+    val algorithm: Algorithm,
+    val children: List<ComponentBuilder<*>>,
+    val gap: Int = 0,
+    ) : ComponentBuilder<FlowLayout>(TYPE) {
 
     enum class Algorithm(val value: Byte, val key: String, val constructor: (Sizing, Sizing) -> FlowLayout) {
 
         VERTICAL(1, "vertical", Containers::verticalFlow),
 
-        HORIZONTAL(2, "horizontal", Containers::horizontalFlow);
+        HORIZONTAL(2, "horizontal", Containers::horizontalFlow),
 
+        LTR_TEXT(3, "ltrText", Containers::ltrTextFlow);
 
         companion object {
             val CODEC = Codec.BYTE.xmap(this::fromByte, Algorithm::value)
@@ -38,7 +37,7 @@ class LayoutComponentBuilder(
 
     override fun serialize(): NbtCompound {
         val nbt = NbtCompound();
-        nbt.put("algorithm", Algorithm.CODEC.encodeStart(NbtOps.INSTANCE, properties.algorithm).result().orElseThrow())
+        nbt.put("algorithm", Algorithm.CODEC.encodeStart(NbtOps.INSTANCE, algorithm).result().orElseThrow())
 
         val childrenNbt = NbtList()
         childrenNbt.addAll(children.map { ComponentBuilderType.serialize(it) })
@@ -50,19 +49,26 @@ class LayoutComponentBuilder(
 
     override fun build(eventCallbackHandler: (NbtCompound) -> Unit): FlowLayout {
         val layout =
-            properties.algorithm.constructor(Sizing.fill(100), Sizing.fill(100))
+            algorithm.constructor(Sizing.fill(100), Sizing.fill(100))
 
         layout.children(children.map { it.build(eventCallbackHandler) })
 
         return layout
     }
 
+    fun withGap(gap: Int) = copy(gap = gap)
+
+    fun withAlgorithm(algorithm: Algorithm) = copy(algorithm = algorithm)
+
+    fun withChildren(children: List<ComponentBuilder<*>>) = copy(children = children)
+
     companion object TYPE : ComponentBuilderType<LayoutComponentBuilder>() {
         override fun deserialize(nbt: NbtCompound): LayoutComponentBuilder {
             val algorithm = Algorithm.CODEC.decode(NbtOps.INSTANCE, nbt.get("algorithm")).result().orElseThrow().first
 
             val children =
-                nbt.getList("children", NbtElement.COMPOUND_TYPE.toInt()).map { ComponentBuilderType.deserialize(it as NbtCompound) }
+                nbt.getList("children", NbtElement.COMPOUND_TYPE.toInt())
+                    .map { Companion.deserialize(it as NbtCompound) }
 
             return LayoutComponentBuilder(algorithm, children)
         }
@@ -81,7 +87,7 @@ class LayoutComponentBuilder(
 
             out.append(Text.translatable("${propertiesKey}.algorithm"))
                 .append(": ")
-                .append(data.properties.algorithm.key)
+                .append(data.algorithm.key)
 
             //TODO: display children
 

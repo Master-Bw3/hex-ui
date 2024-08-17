@@ -8,7 +8,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import mod.master_bw3.hexui.fabric.api.casting.iota.ComponentIota
-import mod.master_bw3.hexui.fabric.api.componentBuilder.ButtonComponentBuilder
+import mod.master_bw3.hexui.fabric.componentBuilder.component.ButtonComponentBuilder
 import net.minecraft.text.Text
 import ram.talia.moreiotas.api.getString
 

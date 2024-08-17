@@ -14,7 +14,7 @@ import net.minecraft.network.PacketByteBuf
 import java.util.function.Supplier
 
 @JvmRecord
-data class MsgSetScreenS2C(val view: ComponentBuilder<*, *>) {
+data class MsgSetScreenS2C(val view: ComponentBuilder<*>) {
     constructor(buf: PacketByteBuf) : this(ComponentBuilderType.deserialize(buf.readNbt()!!))
 
     fun encode(buf: PacketByteBuf) {

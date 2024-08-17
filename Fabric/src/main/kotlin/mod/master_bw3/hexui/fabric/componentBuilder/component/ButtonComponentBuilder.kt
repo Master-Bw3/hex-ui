@@ -1,41 +1,32 @@
-package mod.master_bw3.hexui.fabric.api.componentBuilder
+package mod.master_bw3.hexui.fabric.componentBuilder.component
 
 import at.petrak.hexcasting.api.casting.iota.IotaType
-import at.petrak.hexcasting.api.casting.iota.ListIota
-import at.petrak.hexcasting.api.utils.getCompound
-import at.petrak.hexcasting.api.utils.putCompound
-import at.petrak.hexcasting.api.utils.styledWith
-import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
-import dev.architectury.networking.NetworkManager
 import io.wispforest.owo.ui.component.ButtonComponent
 import io.wispforest.owo.ui.component.Components
-import net.minecraft.client.gui.widget.Widget
+import mod.master_bw3.hexui.fabric.api.componentBuilder.ComponentBuilder
+import mod.master_bw3.hexui.fabric.api.componentBuilder.ComponentBuilderType
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtOps
-import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import net.minecraft.util.dynamic.Codecs
 
-class ButtonComponentBuilder(
-    message: Text, onClick: NbtCompound,
-    children: List<ComponentBuilder<ButtonComponent, ButtonProperties>>
-) : ComponentBuilder<ButtonComponent, ButtonComponentBuilder.ButtonProperties>(
-    TYPE, ButtonProperties(message, onClick), children
-) {
-    data class ButtonProperties(val message: Text, val onClick: NbtCompound);
-
+data class ButtonComponentBuilder(
+    val message: Text, val onClick: NbtCompound,
+    val children: List<ComponentBuilder<ButtonComponent>>
+) : ComponentBuilder<ButtonComponent>(TYPE) {
 
     override fun serialize(): NbtCompound {
         val nbt = NbtCompound();
-        nbt.put("message", Codecs.TEXT.encodeStart(NbtOps.INSTANCE, properties.message).result().orElseThrow())
-        nbt.put("onClick", properties.onClick)
+        nbt.put("message", Codecs.TEXT.encodeStart(NbtOps.INSTANCE, message).result().orElseThrow())
+        nbt.put("onClick", onClick)
 
         return nbt;
     }
 
     override fun build(eventCallbackHandler: (NbtCompound) -> Unit): ButtonComponent {
-        val button = Components.button(properties.message
-        ) { _ -> eventCallbackHandler(properties.onClick) }
+        val button = Components.button(
+            message
+        ) { _ -> eventCallbackHandler(onClick) }
 
         return button
     }
@@ -62,12 +53,12 @@ class ButtonComponentBuilder(
 
             out.append(Text.translatable("${propertiesKey}.message"))
                 .append(": \"")
-                .append(data.properties.message)
+                .append(data.message)
                 .append("\", ")
 
             out.append(Text.translatable("${propertiesKey}.onClick"))
                 .append(": ")
-                .append(IotaType.getDisplay(data.properties.onClick))
+                .append(IotaType.getDisplay(data.onClick))
 
             out.append("}")
 
