@@ -10,20 +10,24 @@ import mod.master_bw3.hexui.fabric.componentBuilder.container.LayoutComponentBui
 import mod.master_bw3.hexui.fabric.casting.actions.OpDisplayScreen
 import mod.master_bw3.hexui.fabric.casting.actions.OpMakeButton
 import mod.master_bw3.hexui.fabric.casting.actions.OpMakeLayout
+import mod.master_bw3.hexui.fabric.casting.actions.OpSetChildren
 import mod.master_bw3.hexui.registry.HexUIRegistrar
 
 object FabricHexUIActions : HexUIRegistrar<ActionRegistryEntry>(HexRegistries.ACTION, { HexActions.REGISTRY }) {
 
     @JvmField
-    val MAKE_BUTTON = make("make_button", HexDir.NORTH_EAST, "wdewd", OpMakeButton)
+    val MAKE_BUTTON = make("component.make_button", HexDir.NORTH_EAST, "wdewd", OpMakeButton)
 
     @JvmField
-    val MAKE_LAYOUT_VERTICAL = make("make_layout_vertical", HexDir.NORTH_EAST, "eewdwwdew", OpMakeLayout(
+    val MAKE_LAYOUT_VERTICAL = make("component.make_layout_vertical", HexDir.NORTH_EAST, "eewdwwdew", OpMakeLayout(
         LayoutComponentBuilder.Algorithm.VERTICAL))
 
     @JvmField
-    val MAKE_LAYOUT_HORIZONTAL = make("make_layout_horizontal", HexDir.NORTH_EAST, "eeewdqdee", OpMakeLayout(
+    val MAKE_LAYOUT_HORIZONTAL = make("component.make_layout_horizontal", HexDir.NORTH_EAST, "eeewdqdee", OpMakeLayout(
         LayoutComponentBuilder.Algorithm.HORIZONTAL))
+
+    @JvmField
+    val SET_CHILDREN = make("component.set_children", HexDir.NORTH_EAST, "deedadd", OpSetChildren)
 
     @JvmField
     val DISPLAY_SCREEN = make("display_screen", HexDir.NORTH_EAST, "eeeeeweee", OpDisplayScreen)

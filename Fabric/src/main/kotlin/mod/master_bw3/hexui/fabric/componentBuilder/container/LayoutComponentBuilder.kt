@@ -7,6 +7,8 @@ import io.wispforest.owo.ui.container.FlowLayout
 import io.wispforest.owo.ui.core.Sizing
 import mod.master_bw3.hexui.fabric.api.componentBuilder.ComponentBuilder
 import mod.master_bw3.hexui.fabric.api.componentBuilder.ComponentBuilderType
+import mod.master_bw3.hexui.fabric.api.componentBuilder.HasChildren
+import mod.master_bw3.hexui.fabric.api.componentBuilder.HasGap
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtList
@@ -16,9 +18,9 @@ import java.util.*
 
 data class LayoutComponentBuilder(
     val algorithm: Algorithm,
-    val children: List<ComponentBuilder<*>>,
-    val gap: Int = 0,
-    ) : ComponentBuilder<FlowLayout>(TYPE) {
+    override val children: List<ComponentBuilder<*>> = listOf(),
+    override val gap: Int = 0,
+) : ComponentBuilder<FlowLayout>(TYPE), HasChildren<LayoutComponentBuilder>, HasGap<LayoutComponentBuilder> {
 
     enum class Algorithm(val value: Byte, val key: String, val constructor: (Sizing, Sizing) -> FlowLayout) {
 
@@ -56,11 +58,13 @@ data class LayoutComponentBuilder(
         return layout
     }
 
-    fun withGap(gap: Int) = copy(gap = gap)
+    override fun withGap(gap: Int) = copy(gap = gap)
 
     fun withAlgorithm(algorithm: Algorithm) = copy(algorithm = algorithm)
 
-    fun withChildren(children: List<ComponentBuilder<*>>) = copy(children = children)
+    override fun withChildren(children: List<ComponentBuilder<*>>) = copy(children = children)
+
+    override fun addChild(child: ComponentBuilder<*>) = copy(children = children.plus(child))
 
     companion object TYPE : ComponentBuilderType<LayoutComponentBuilder>() {
         override fun deserialize(nbt: NbtCompound): LayoutComponentBuilder {

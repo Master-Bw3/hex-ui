@@ -10,18 +10,11 @@ import mod.master_bw3.hexui.fabric.componentBuilder.container.LayoutComponentBui
 
 class OpMakeLayout(private val algorithm: LayoutComponentBuilder.Algorithm) : ConstMediaAction {
     override val argc: Int
-        get() = 1
+        get() = 0
 
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-        val list = args.getList(0, argc)
 
-        val children = list.map {
-            val componentIota = it as? ComponentIota<*> ?: throw MishapInvalidIota.ofType(it, 1, "component")
-            componentIota.component
-        }
-
-
-        val component = LayoutComponentBuilder(algorithm, children)
+        val component = LayoutComponentBuilder(algorithm)
 
         return listOf(ComponentIota(component))
     }
