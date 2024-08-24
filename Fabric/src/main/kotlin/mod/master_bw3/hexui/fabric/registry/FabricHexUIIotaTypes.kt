@@ -5,6 +5,7 @@ import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.common.lib.HexRegistries
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import mod.master_bw3.hexui.fabric.api.casting.iota.ComponentIota
+import mod.master_bw3.hexui.fabric.api.casting.iota.SizingIota
 import mod.master_bw3.hexui.fabric.item.ItemUI
 import mod.master_bw3.hexui.registry.HexUIRegistrar
 import net.minecraft.item.Item
@@ -17,4 +18,6 @@ object FabricHexUIIotaTypes : HexUIRegistrar<IotaType<out Iota>>(HexRegistries.I
     @JvmField
     val COMPONENT = register("component") { ComponentIota.TYPE }
 
+    @JvmField
+    val SIZING = register("sizing") { SizingIota.TYPE }
 }
