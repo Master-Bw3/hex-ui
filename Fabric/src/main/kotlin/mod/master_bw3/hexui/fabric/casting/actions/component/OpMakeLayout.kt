@@ -1,10 +1,8 @@
-package mod.master_bw3.hexui.fabric.casting.actions
+package mod.master_bw3.hexui.fabric.casting.actions.component
 
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
-import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import mod.master_bw3.hexui.fabric.api.casting.iota.ComponentIota
 import mod.master_bw3.hexui.fabric.componentBuilder.container.LayoutComponentBuilder
 

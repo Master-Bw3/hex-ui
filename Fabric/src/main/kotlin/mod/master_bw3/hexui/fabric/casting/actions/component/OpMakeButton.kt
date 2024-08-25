@@ -1,6 +1,5 @@
-package mod.master_bw3.hexui.fabric.casting.actions
+package mod.master_bw3.hexui.fabric.casting.actions.component
 
-import at.petrak.hexcasting.api.casting.castables.Action
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.getList

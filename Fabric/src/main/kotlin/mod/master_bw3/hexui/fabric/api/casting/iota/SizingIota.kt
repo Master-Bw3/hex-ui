@@ -27,8 +27,8 @@ class SizingIota(payload: SizingData) : Iota(TYPE, payload) {
         CODEC.encodeStart(NbtOps.INSTANCE, this).result().orElseThrow()
 
 
-    val sizing: Sizing
-        get() = ((this).payload as SizingData).toSizing()
+    val sizing: SizingData
+        get() = ((this).payload as SizingData)
 
     companion object TYPE : IotaType<SizingIota>() {
         val CODEC: Codec<SizingIota> = SizingData.CODEC.xmap(::SizingIota) { it.payload as SizingData }

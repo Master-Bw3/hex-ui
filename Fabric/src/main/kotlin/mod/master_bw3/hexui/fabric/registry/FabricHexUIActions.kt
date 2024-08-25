@@ -7,6 +7,7 @@ import at.petrak.hexcasting.api.casting.math.HexPattern
 import at.petrak.hexcasting.common.lib.HexRegistries
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import mod.master_bw3.hexui.fabric.casting.actions.*
+import mod.master_bw3.hexui.fabric.casting.actions.component.*
 import mod.master_bw3.hexui.fabric.componentBuilder.container.LayoutComponentBuilder
 import mod.master_bw3.hexui.registry.HexUIRegistrar
 
@@ -17,11 +18,21 @@ object FabricHexUIActions : HexUIRegistrar<ActionRegistryEntry>(HexRegistries.AC
 
     @JvmField
     val MAKE_LAYOUT_VERTICAL = make("component.make_layout_vertical", HexDir.NORTH_EAST, "eewdwwdew", OpMakeLayout(
-        LayoutComponentBuilder.Algorithm.VERTICAL))
+        LayoutComponentBuilder.Algorithm.VERTICAL)
+    )
 
     @JvmField
     val MAKE_LAYOUT_HORIZONTAL = make("component.make_layout_horizontal", HexDir.EAST, "eeewdqdee", OpMakeLayout(
-        LayoutComponentBuilder.Algorithm.HORIZONTAL))
+        LayoutComponentBuilder.Algorithm.HORIZONTAL)
+    )
+
+    @JvmField
+    val MAKE_LAYOUT_LTR = make("component.make_layout_ltr", HexDir.EAST, "qqqaeedqd", OpMakeLayout(
+                LayoutComponentBuilder.Algorithm.LTR_TEXT)
+    )
+
+    @JvmField
+    val MAKE_GRID_LAYOUT = make("component.make_layout_ltr", HexDir.EAST, "eeeeaeeeeaeeee", OpMakeGridLayout)
 
     @JvmField
     val SET_CHILDREN = make("component.set_children", HexDir.EAST, "deedadd", OpSetChildren)

@@ -3,7 +3,9 @@ package mod.master_bw3.hexui.fabric.api.casting
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
+import io.wispforest.owo.ui.core.Sizing
 import mod.master_bw3.hexui.fabric.api.casting.iota.ComponentIota
+import mod.master_bw3.hexui.fabric.api.casting.iota.SizingIota
 import mod.master_bw3.hexui.fabric.api.componentBuilder.ComponentBuilder
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
@@ -28,5 +30,15 @@ fun <T : Any> List<Iota>.getComponent(has: Class<T>, idx: Int, argc: Int = 0): T
     } else {
         // TODO: I'm not sure this calculation is correct
         throw MishapInvalidIota.ofType(x, if (argc == 0) idx else argc - (idx + 1), has.simpleName)
+    }
+}
+
+fun List<Iota>.getSizing(idx: Int, argc: Int = 0): SizingData {
+    val x = this.getOrElse(idx) { throw MishapNotEnoughArgs(idx + 1, this.size) }
+    if (x is SizingIota) {
+        return x.sizing
+    } else {
+        // TODO: I'm not sure this calculation is correct
+        throw MishapInvalidIota.ofType(x, if (argc == 0) idx else argc - (idx + 1), "component")
     }
 }
